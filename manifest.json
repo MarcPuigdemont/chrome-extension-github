@@ -1,0 +1,12 @@
+{
+  "manifest_version": 1,
+
+  "name": "Backport highlighting for deployment PRs on GitHub",
+  "version": "1.0.0",
+  "description": "Helper to highlight the backport commits on our deployment PRs on GitHub so it's easier to see what commits are really part of the deployment PR",
+
+  "content_scripts": [{
+    "js": ["script.js"],
+    "matches": ["https://github.com/PartnerPage/Apps/pull/*"]
+  }]
+}
