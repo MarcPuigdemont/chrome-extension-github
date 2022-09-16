@@ -33,7 +33,7 @@ while (i < elements.length) {
     timelineDiv2.style.height = '10px';
     backportCommitDiv2.insertBefore(timelineDiv2, backportCommitDiv2.firstChild);
 
-    i = i + 3;
+    i = i + 2;
   } else {
     i = i + 1;
   }
