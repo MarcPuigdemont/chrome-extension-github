@@ -7,6 +7,6 @@
 
   "content_scripts": [{
     "js": ["script.js"],
-    "matches": ["https://github.com/PartnerPage/Apps/pull/*"]
+    "matches": ["https://github.com/PartnerPage/Apps/pull/*", "https://github.com/PartnerPage/Backend/pull/*"]
   }]
 }
