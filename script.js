@@ -2,6 +2,7 @@ const mergeRemoteBranchBackportText = `Merge remote-tracking branch 'origin/stag
 const mergeRemoteBranchDeployText = `Merge remote-tracking branch 'origin/staging' into staging-to-prod`;
 const mergeBackportPRRegex = /Merge pull request #[0-9]+ from PartnerPage\/staging-to-dev/i;
 const mergeDeployToStagingPRRegex = /Merge pull request #[0-9]+ from PartnerPage\/dev-to-staging/i;
+const mergeRemoteDevBranchDeployText = `Merge remote-tracking branch 'origin/dev' into dev-to-staging`;
 
 function createHeaderDiv(color, text) {
   const div = document.createElement("div");
@@ -55,7 +56,7 @@ document.querySelectorAll('[data-test-selector="pr-timeline-commits-list"]').for
       parent.insertBefore(deployDiv, deployToStagingCommitDiv);
   
       deployDiv.insertBefore(createTimelineDiv('#0E8A16'), deployDiv.firstChild);
-      deployToStagingCommitDiv.insertBefore(createTimelineDiv('#0E8A16'), deployToStagingCommitDiv.firstChild);
+      deployToStagingCommitDiv.insertBefore(createTimelineDiv('#0E8A16', '10px'), deployToStagingCommitDiv.firstChild);
     } else if (elements[i].textContent.includes(mergeRemoteBranchDeployText)) {
       const deployToProdCommitDiv = elements[i];
       deployToProdCommitDiv.style.paddingLeft = "35px";
@@ -65,6 +66,15 @@ document.querySelectorAll('[data-test-selector="pr-timeline-commits-list"]').for
   
       deployDiv.insertBefore(createTimelineDiv('#0E8A16'), deployDiv.firstChild);
       deployToProdCommitDiv.insertBefore(createTimelineDiv('#0E8A16'), deployToProdCommitDiv.firstChild);
+    } else if (elements[i].textContent.includes(mergeRemoteDevBranchDeployText)) {
+      const deployToStagingCommitDiv = elements[i];
+      deployToStagingCommitDiv.style.paddingLeft = "35px";
+  
+      const deployDiv = createHeaderDiv('#0E8A16', 'This deploy has no backport');
+      parent.insertBefore(deployDiv, deployToStagingCommitDiv);
+  
+      deployDiv.insertBefore(createTimelineDiv('#0E8A16'), deployDiv.firstChild);
+      deployToStagingCommitDiv.insertBefore(createTimelineDiv('#0E8A16', '10px'), deployToStagingCommitDiv.firstChild);
     }
   
     i = i + 1;
