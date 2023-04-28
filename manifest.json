@@ -1,12 +1,36 @@
 {
-  "manifest_version": 2,
-
-  "name": "Backport highlighting for deployment PRs on GitHub",
-  "version": "1.0.0",
-  "description": "Helper to highlight the backport commits on our deployment PRs on GitHub so it's easier to see what commits are really part of the deployment PR",
-
-  "content_scripts": [{
-    "js": ["script.js"],
-    "matches": ["https://github.com/PartnerPage/Apps/pull/*", "https://github.com/PartnerPage/Backend/pull/*"]
-  }]
+  "manifest_version": 3,
+  "name": "PartnerPage helper for PRs on GitHub",
+  "version": "1.0",
+  "description": "Helper to make sure we click the right merge button and  also, highlight the backport commits on our deployment PRs on GitHub so it's easier to see what commits are really part of the deployment PR",
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "https://github.com/*",
+    "webNavigation",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://github.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://github.com/PartnerPage/Apps/pull/*",
+        "https://github.com/PartnerPage/Backend/pull/*"
+      ],
+      "js": ["contentScript.js"],
+      "all_frames": true
+    }
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'",
+    "content_scripts": [
+      "script-src 'self' https://github.githubassets.com;"
+    ]
+  }
 }
